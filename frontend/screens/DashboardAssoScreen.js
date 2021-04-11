@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, SafeAreaView, ScrollView } from 'react-native';
 
 
-function DashboardScreen(props) {
+function DashboardAssoScreen(props) {
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scroll}>
@@ -70,9 +70,8 @@ const styles = StyleSheet.create({
         height: 1,
         marginTop: 5,
         marginBottom: 10,
-        backgroundColor: '#2A9D8F',
+        backgroundColor: '#803BCA',
     }
 });
 
-
-export default DashboardScreen;
+export default DashboardAssoScreen;

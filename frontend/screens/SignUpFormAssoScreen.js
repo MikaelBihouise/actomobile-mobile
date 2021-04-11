@@ -8,119 +8,6 @@ import { connect } from 'react-redux'
 
 function SignUpFormBeneScreen(props) {
 
-    const selectCompetence = [
-        {
-            value: 'Biologie',
-            label: 'Biologie',
-        },
-        {
-            value: 'Cloud Computing',
-            label: 'Cloud Computing',
-        },
-
-        {
-            value: 'Electronique',
-            label: 'Electronique',
-        },
-
-        {
-            value: 'Evènementiel',
-            label: 'Evènementiel',
-        },
-        {
-            value: 'IA (Intelligence Artificielle)',
-            label: 'IA (Intelligence Artificielle)',
-        },
-        {
-            value: 'Infirmier(e)',
-            label: 'Infirmier(e)'
-        },
-        {
-            value: 'Informatique',
-            label: 'Informatique',
-        },
-
-        {
-            value: 'Juridique',
-            label: 'Juridique'
-        }, 
-
-        {
-            value: 'Maçon',
-            label: 'Maçon'
-        },
-
-        {
-            value: 'Marketing et conception de vidéos',
-            label: 'Marketing et conception de vidéos'
-        },
-        {
-            value: 'Mécanicien(e)',
-            label: 'Mécanicien(e)'
-        },
-        {
-            value: 'Médecin',
-            label: 'Médecin'
-        },
-        {
-            value: 'Menuisier',
-            label: 'Menuisier'
-        },
-        
-        {
-            value: 'Musicien',
-            label: 'Musicien'
-        },
-
-        {
-            value: 'Plombier',
-            label: 'Plombier'
-        },
-        {
-            value: 'Professeur des écoles',
-            label: 'Professeur des écoles'
-        },
-        {
-            value: 'Traducteur(rice)',
-            label: 'Traducteur(rice)'
-        },
-
-        {
-            value: 'UX Design',
-            label: 'UX Design',
-        },
-
-        
-        {
-            value: 'Web analytique',
-            label: 'Web analytique',
-        },
-
-        {
-            value: 'Web Design',
-            label: 'Web Design',
-        },
-        {
-            value: 'Web Dev',
-            label: 'Web Dev',
-        },
-    ];
-
-    const selectDispo = [
-        {
-            value: 'À distance',
-            label: 'À distance',
-        },
-        {
-            value: 'Locale',
-            label: 'Locale',
-        },
-        {
-            value: 'Les Deux',
-            label: 'Les Deux',
-        }
-    ];
-
     const selectVisibilite = [
         {
             value: 'Public',
@@ -138,33 +25,35 @@ function SignUpFormBeneScreen(props) {
 
     const [signUpName, setSignUpName] = useState('')
     const [signUpFirstName, setSignUpFirstName] = useState('')
+    const [signUpEntiteName, setSignUpEntiteName] = useState('')
+    const [signUpApe, setSignUpApe] = useState('')
     const [signUpVille, setSignUpVille] = useState('')
-    const [signUpSkill, setSignUpSkill] = useState([])
-    const [signUpExpPro, setSignUpExpPro] = useState('')
-    const [signUpDispo, setSignUpDispo] = useState(null)
-    const [signUpVisibility, setSignUpVisibility] = useState(null)
-    const [signUpCV, setSignUpCV] = useState(null)
+    const [signUpVisibility, setSignUpVisibility] = useState('')
     const [signUpDesc, setSignUpDesc] = useState('')
-    const [signUpImage, setSignUpImage] = useState('')
 
     const [formulaireOK, setFormulaireOK] = useState(false)
 
-    var handleSubmitSignupForm = async () => {
+    const handleSubmitSignupForm = async () => {
+
+        console.log('click')
     
-        const data = await fetch('http://192.168.0.32:3000/users/volunteer-sign-up-form-mobile', {
+        const data = await fetch('http://192.168.42.66:3000/users/charity-sign-up-form', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body:`nameFromFront=${signUpName}&firstNameFromFront=${signUpFirstName}&villeFromFront=${signUpVille}&skillFromFront=${(signUpSkill)}&expProFromFront=${signUpExpPro}&dispoFromFront=${signUpDispo.value}&visibiliteFromFront=${signUpVisibility.value}&descFromFront=${signUpDesc}&cvFromFront=${signUpCV}&token=${props.token}`
+            body:`nameFromFront=${signUpName}&firstNameFromFront=${signUpFirstName}&entiteFromFront=${signUpEntiteName}&apeFromFront=${signUpApe}&villeFromFront=${signUpVille}&descFromFront=${signUpDesc}&visibiliteFromFront=${signUpVisibility.value}&token=${props.token}`
         })
+    
         const body = await data.json()
 
-        if (body.result === true) {
+        console.log(body);
+
+        if(body.result === true){
             setFormulaireOK(true)
-        }
-    }
+
+    } };
 
     if (formulaireOK){
-        return (<Redirect to='/Dashboard'/>)
+        return (<Redirect to='/DashboardAsso'/>)
     }
 
 
@@ -191,83 +80,30 @@ function SignUpFormBeneScreen(props) {
                 <Input 
                     style={{ color: '#262626' }}
                     inputContainerStyle={{ borderBottomColor: '#262626', width:250, alignSelf:'center', paddingLeft: 3 }}
-                    placeholder='Ville'
+                    placeholder='Entité'
+                    placeholderTextColor="#262626" 
+                    onChangeText={(value) => setSignUpEntiteName(value)}
+                    value={signUpEntiteName}
+                />
+                <Input 
+                    style={{ color: '#262626' }}
+                    inputContainerStyle={{ borderBottomColor: '#262626', width:250, alignSelf:'center', paddingLeft: 3 }}
+                    placeholder='Code APE (facultatif)'
+                    placeholderTextColor="#262626" 
+                    onChangeText={(value) => setSignUpApe(value)}
+                    value={signUpApe}
+                />
+                <Input 
+                    style={{ color: '#262626' }}
+                    inputContainerStyle={{ borderBottomColor: '#262626', width:250, alignSelf:'center', marginTop: 30, paddingLeft: 3 }}
+                    placeholder='Votre ville'
                     placeholderTextColor="#262626" 
                     onChangeText={(value) => setSignUpVille(value)}
                     value={signUpVille}
                 />
                 <DropDownPicker
-                    items={selectCompetence}
-                    containerStyle={{height: 50, width: 250}}
-                    multiple={true}
-                    min={0}
-                    max={15}
-                    defaultValue = {[]} // Multiple
-                    multipleText="%d de séléctionné"
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingLeft: 0,
-                        marginLeft: 0,
-                        borderWidth:0,
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#262626'
-                    }}
-                    itemStyle={{
-                        justifyContent: 'flex-start',
-                    }}
-                    labelStyle={{
-                        fontSize: 17,
-                        textAlign: 'left',
-                        color: '#262626',
-                        fontFamily: "Roboto-Regular",
-                    }}
-                    placeholder="Vos compétences"
-                    dropDownStyle={{
-                        backgroundColor: '#fcfcfc',
-                        borderWidth:1,
-                        borderColor: '#262626',
-                    }}
-                    onChangeItem={(value) => setSignUpSkill(value)}
-                />
-                <Input 
-                    style={{ color: '#262626' }}
-                    inputContainerStyle={{ borderBottomColor: '#262626', width:250, alignSelf:'center', marginTop: 30, paddingLeft: 3 }}
-                    placeholder='Expériences professionelles'
-                    placeholderTextColor="#262626" 
-                    onChangeText={(value) => setSignUpExpPro(value)}
-                    value={signUpExpPro}
-                />
-                <DropDownPicker
-                    items={selectDispo}
-                    containerStyle={{height: 50, width: 250}}
-                    style={{
-                        backgroundColor: '#fff',
-                        paddingLeft: 0,
-                        marginLeft: 0,
-                        borderWidth:0,
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#262626'
-                    }}
-                    itemStyle={{
-                        justifyContent: 'flex-start',
-                    }}
-                    labelStyle={{
-                        fontSize: 17,
-                        textAlign: 'left',
-                        color: '#262626',
-                        fontFamily: "Roboto-Regular",
-                    }}
-                    placeholder="Vos disponibilité"
-                    dropDownStyle={{
-                        backgroundColor: '#fcfcfc',
-                        borderWidth:1,
-                        borderColor: '#262626',
-                    }}
-                    onChangeItem={(value) => setSignUpVisibility(value)}
-                />
-                <DropDownPicker
                     items={selectVisibilite}
-                    containerStyle={{height: 50, width: 250, marginTop:30}}
+                    containerStyle={{height: 50, width: 250}}
                     style={{
                         backgroundColor: '#fff',
                         paddingLeft: 0,
@@ -291,12 +127,12 @@ function SignUpFormBeneScreen(props) {
                         borderWidth:1,
                         borderColor: '#262626',
                     }}
-                    onChangeItem={(value) => setSignUpDispo(value)}
+                    onChangeItem={(value) => setSignUpVisibility(value)}
                 />
                 <Input 
                     style={{ color: '#262626' }}
                     inputContainerStyle={{ borderBottomColor: '#262626', width:250, alignSelf:'center', marginTop: 30, paddingLeft: 3 }}
-                    placeholder='Description de votre profil'
+                    placeholder='Votre Description (facultatif)'
                     placeholderTextColor="#262626" 
                     onChangeText={(value) => setSignUpDesc(value)}
                     value={signUpDesc}

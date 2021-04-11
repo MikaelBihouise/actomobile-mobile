@@ -8,7 +8,9 @@ import InfoScreen from './screens/InfoScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import DashboardScreen from './screens/DashboardScreen'
+import DashboardAssoScreen from './screens/DashboardAssoScreen'
 import SignUpFormBeneScreen from './screens/SignUpFormBeneScreen'
+import SignUpFormAssoScreen from './screens/SignUpFormAssoScreen'
 
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
@@ -37,7 +39,9 @@ export default function App() {
             <Route path="/Login" component={LoginScreen} />
             <Route path="/SignUp" component={SignUpScreen} />
             <Route path="/SignUpFormBene" component={SignUpFormBeneScreen} />
+            <Route path="/SignUpFormAsso" component={SignUpFormAssoScreen} />
             <Route path="/Dashboard" component={DashboardScreen} />
+            <Route path="/DashboardAsso" component={DashboardAssoScreen} />
           </BackButton>
         </NativeRouter>
       </Provider>

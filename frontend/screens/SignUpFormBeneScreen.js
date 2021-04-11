@@ -151,7 +151,7 @@ function SignUpFormBeneScreen(props) {
 
     var handleSubmitSignupForm = async () => {
     
-        const data = await fetch('http://192.168.42.139:3000/users/volunteer-sign-up-form-mobile', {
+        const data = await fetch('http://192.168.42.66:3000/users/volunteer-sign-up-form-mobile', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body:`nameFromFront=${signUpName}&firstNameFromFront=${signUpFirstName}&villeFromFront=${signUpVille}&skillFromFront=${(signUpSkill)}&expProFromFront=${signUpExpPro}&dispoFromFront=${signUpDispo.value}&visibiliteFromFront=${signUpVisibility.value}&descFromFront=${signUpDesc}&cvFromFront=${signUpCV}&token=${props.token}`
@@ -263,7 +263,7 @@ function SignUpFormBeneScreen(props) {
                         borderWidth:1,
                         borderColor: '#262626',
                     }}
-                    onChangeItem={(value) => setSignUpVisibility(value)}
+                    onChangeItem={(value) => setSignUpDispo(value)}
                 />
                 <DropDownPicker
                     items={selectVisibilite}
@@ -291,7 +291,7 @@ function SignUpFormBeneScreen(props) {
                         borderWidth:1,
                         borderColor: '#262626',
                     }}
-                    onChangeItem={(value) => setSignUpDispo(value)}
+                    onChangeItem={(value) => setSignUpVisibility(value)}
                 />
                 <Input 
                     style={{ color: '#262626' }}

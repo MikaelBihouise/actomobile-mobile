@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Redirect, withRouter } from 'react-router';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux'
 
 
@@ -30,7 +30,7 @@ function SignUpScreen(props) {
 
     var handleSubmitSignup = async () => {
     
-        const data = await fetch('http://192.168.42.139:3000/users/sign-up', {
+        const data = await fetch('http://192.168.42.66:3000/users/sign-up', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}&typeFromFront=${signUpType.value}`
@@ -83,6 +83,7 @@ function SignUpScreen(props) {
                 placeholderTextColor="#262626" 
                 onChangeText={(value) => setSignUpPassword(value)}
                 value={signUpPassword}
+                secureTextEntry={true}
             />
             <DropDownPicker
                 items={dataSelect}
